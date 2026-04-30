@@ -11,6 +11,8 @@ const PhotoCard = ({ photo }) => {
         <Image
           src={photo.image}
           fill
+          unoptimized={true}
+          priority={photo.id === 1}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           alt={photo.name}
           className="object-cover rounded-lg"

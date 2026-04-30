@@ -1,11 +1,11 @@
 import PhotoCard from "./PhotoCard";
 
 const FeaturedAnimals = async () => {
-  const res = await fetch('https://qurbanihat-livestock-booking-platfo.vercel.app/data.json');
+  const res = await fetch('https://qurbanihat-livestock-booking-platfo.vercel.app/data.json', { next: { revalidate: 10 } });
   const photos = await res.json();
   // console.log(animals);
   const featuredPhotos = photos.slice(0, 4);
-  // console.log(featuredPhotos);
+  console.log(featuredPhotos);
   
   
   return (
