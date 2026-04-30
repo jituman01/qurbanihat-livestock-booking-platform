@@ -7,17 +7,17 @@ import { TbCurrencyTaka } from "react-icons/tb";
 const PhotoCard = ({ photo }) => {
   return (
     <Card className="border rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow">
-      <div className="relative w-full aspect-[4/3] mb-3">
+      <div className="relative w-full aspect-4/3 mb-3">
         <Image
           src={photo.image}
           fill
           unoptimized={true}
           priority={photo.id === 1}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 768px), (max-width: 1200px)"
           alt={photo.name}
           className="object-cover rounded-lg"
         />
-        <Chip size="sm" color="success" variant="flat" className="absolute right-2 top-2">
+        <Chip size="sm" color="accent" variant="flat" className="absolute right-2 top-2">
             {photo.category}
         </Chip>
       </div>
@@ -33,7 +33,7 @@ const PhotoCard = ({ photo }) => {
             <TbCurrencyTaka size={20} />
             <span>{photo.price?.toLocaleString()}</span>
           </div>
-          <div className="w-[1px] h-4 bg-gray-300" /> {/* ম্যানুয়াল ডিভাইডার */}
+          <div className="w-px h-4 bg-gray-300" /> 
           <div className="flex items-center gap-1 text-gray-600 text-sm">
             <FaWeightHanging />
             <span>{photo.weight} kg</span>
@@ -42,7 +42,7 @@ const PhotoCard = ({ photo }) => {
       </div>
 
       <Link href={`/all-animals/${photo.id}`} className="w-full">
-        <Button color="primary" variant="shadow" className="w-full font-medium">
+        <Button color="primary" variant="shadow" className="w-full font-medium bg-yellow-100 hover:bg-yellow-200">
           View Details
         </Button>
       </Link>
