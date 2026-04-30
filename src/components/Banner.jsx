@@ -4,7 +4,7 @@ import Link from "next/link";
 const Banner = () => {
   return (
     <div style={{ backgroundImage: `url('https://i.pinimg.com/1200x/06/6c/31/066c31b185449de30084a7e606d01d2f.jpg')` }}
-  className="h-[60vh] w-full bg-cover bg-no-repeat bg-center flex items-center rounded-lg shadow-2xl"
+  className="h-[60vh] w-full bg-cover bg-no-repeat bg-center flex items-center rounded-lg shadow-2xl "
 >
       {/* Overlay */}
       <div className="w-full h-full rounded-lg bg-black/50 flex items-center ">
