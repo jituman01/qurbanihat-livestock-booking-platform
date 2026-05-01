@@ -12,32 +12,42 @@ import {
   TextField,
 } from "@heroui/react";
 import { FaGoogle } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 export default function SignInPage() {
-  
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     const email = e.target.email.value;
     const password = e.target.password.value;
-  // console.log({name , image, email, password});
 
     const { data, error } = await authClient.signIn.email({
-
       email,
       password,
       callbackURL: '/'
-    })
+    });
 
-    console.log({data, error});
+   
+    if (error) {
+      toast.error(error.message || "Invalid email or password!");
+    } else {
+      toast.success("Welcome back! Signing in...");
+    }
+
+    // console.log({ data, error });
   };
 
   const handleGoogleSignIn = async () => {
-    await authClient.signIn.social({
-      provider: 'google'
-    })
-  }
+    try {
+      await authClient.signIn.social({
+        provider: 'google'
+      });
+      
+    } catch (err) {
+      toast.error("Could not sign in with Google.");
+    }
+  };
 
   return (
     <Card className="border mx-auto w-125 py-10 mt-5">
@@ -53,7 +63,6 @@ export default function SignInPage() {
             if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
               return "Please enter a valid email address";
             }
-
             return null;
           }}
         >
@@ -77,7 +86,6 @@ export default function SignInPage() {
             if (!/[0-9]/.test(value)) {
               return "Password must contain at least one number";
             }
-
             return null;
           }}
         >
@@ -90,7 +98,7 @@ export default function SignInPage() {
         </TextField>
 
         <div className="flex gap-2">
-          <Button type="submit">
+          <Button type="submit" className="bg-green-700 text-white font-bold">
             <Check />
             Submit
           </Button>
@@ -100,8 +108,16 @@ export default function SignInPage() {
         </div>
       </Form>
 
-      <p className="text-center">Or</p>
-      <Button onClick={handleGoogleSignIn}  className={'w-full'}><FaGoogle></FaGoogle> Sign In With Google</Button>
+      <p className="text-center my-2">Or</p>
+      
+      <div className="px-10">
+        <Button 
+          onClick={handleGoogleSignIn} 
+          className="w-full border-2 bg-white text-black font-medium"
+        >
+          <FaGoogle /> Sign In With Google
+        </Button>
+      </div>
     </Card>
   );
 }
