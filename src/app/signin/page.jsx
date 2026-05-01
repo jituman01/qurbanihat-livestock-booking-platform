@@ -11,7 +11,6 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
-import { FaGoogle } from "react-icons/fa";
 import toast from "react-hot-toast";
 
 export default function SignInPage() {
@@ -115,7 +114,7 @@ export default function SignInPage() {
           onClick={handleGoogleSignIn} 
           className="w-full border-2 bg-white text-black font-medium"
         >
-          <FaGoogle /> Sign In With Google
+          Sign In With Google
         </Button>
       </div>
     </Card>

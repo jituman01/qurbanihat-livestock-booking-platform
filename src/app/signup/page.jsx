@@ -1,7 +1,6 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
 import { Check } from "@gravity-ui/icons";
-import { CiWarning, IoMdCheckmark  } from "react-icons/ci";
 import {
   Button,
   Card,
@@ -66,13 +65,13 @@ export default function SignUpPage() {
       
       {isSuccess && (
         <div className="w-96 mx-auto bg-green-100 text-green-700 p-4 rounded-lg mb-5 text-sm font-bold border border-green-200">
-          <IoMdCheckmark></IoMdCheckmark> Account Created Successfully
+          ✓ Account Created! Redirecting to home...
         </div>
       )}
 
       {errorMessage && (
         <div className="w-96 mx-auto bg-red-100 text-red-700 p-4 rounded-lg mb-5 text-sm font-bold border border-red-200">
-          <CiWarning></CiWarning> {errorMessage}
+          ⚠ {errorMessage}
         </div>
       )}
 
@@ -138,9 +137,9 @@ export default function SignUpPage() {
 
       <div className="w-96 mx-auto mt-6">
         <div className="flex items-center gap-4 mb-6">
-          <div className=" bg-gray-200 flex-1"></div>
+          <div className="h-[1px] bg-gray-200 flex-1"></div>
           <p className="text-gray-400 text-sm font-medium">Or</p>
-          <div className=" bg-gray-200 flex-1"></div>
+          <div className="h-[1px] bg-gray-200 flex-1"></div>
         </div>
         
         <Button 
