@@ -11,7 +11,15 @@ const Navbar = () => {
   // console.log(user);
 
   const handleSignOut = async () => {
-    await authClient.signOut();
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          toast.success("Logged out successfully!");
+          
+          router.push("/signin");
+        },
+      },
+      });
   }
   
   
