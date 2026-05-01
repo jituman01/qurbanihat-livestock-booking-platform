@@ -1,28 +1,35 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import {Envelope} from "@gravity-ui/icons";
-import {Button, Input, Label, Modal, Surface, TextField} from "@heroui/react";
+import { Envelope } from "@gravity-ui/icons";
+import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
 import { FaEdit, FaUser } from "react-icons/fa";
+import toast from "react-hot-toast"; 
 
 export function UpdateUserModal() {
   const onSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const name = e.target.name.value
-    const image = e.target.image.value
-    // console.log({name, image});
+    const name = e.target.name.value;
+    const image = e.target.image.value;
 
-    await authClient.updateUser({
+    const { data, error } = await authClient.updateUser({
       name,
-      image
-    })
-    
-  }
+      image,
+    });
+
+    if (error) {
+      toast.error(error.message || "Update failed!");
+    } else {
+      toast.success("Profile updated successfully!");
+    }
+  };
 
   return (
     <Modal>
-      <Button variant="secondary"><FaEdit></FaEdit> Update Profile</Button>
+      <Button variant="secondary">
+        <FaEdit></FaEdit> Update Profile
+      </Button>
       <Modal.Backdrop>
         <Modal.Container placement="auto">
           <Modal.Dialog className="sm:max-w-md">
@@ -32,7 +39,6 @@ export function UpdateUserModal() {
                 <FaUser className="size-5" />
               </Modal.Icon>
               <Modal.Heading>Update User</Modal.Heading>
-              
             </Modal.Header>
             <Modal.Body className="p-6">
               <Surface variant="default">
@@ -45,18 +51,18 @@ export function UpdateUserModal() {
                     <Label>Image URL</Label>
                     <Input placeholder="Image URL" />
                   </TextField>
-                  
+
                   <Modal.Footer>
-              <Button slot="close" variant="secondary">
-                Cancel
-              </Button>
-              <Button type="submit" slot="close">Save</Button>
-            </Modal.Footer>
-                  
+                    <Button slot="close" variant="secondary">
+                      Cancel
+                    </Button>
+                    <Button type="submit" slot="close">
+                      Save
+                    </Button>
+                  </Modal.Footer>
                 </form>
               </Surface>
             </Modal.Body>
-            
           </Modal.Dialog>
         </Modal.Container>
       </Modal.Backdrop>
