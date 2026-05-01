@@ -31,7 +31,7 @@ export default function SignInPage() {
     if (error) {
       toast.error(error.message || "Invalid email or password!");
     } else {
-      toast.success("Welcome back! Signing in...");
+      toast.success(" Signing in Successfully...");
     }
 
     // console.log({ data, error });
