@@ -3,6 +3,8 @@ import { authClient } from "@/lib/auth-client";
 import { Avatar, Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const userData = authClient.useSession();
@@ -15,7 +17,7 @@ const Navbar = () => {
       fetchOptions: {
         onSuccess: () => {
           toast.success("Logged out successfully!");
-          
+
           router.push("/signin");
         },
       },
