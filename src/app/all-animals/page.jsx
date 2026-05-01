@@ -2,7 +2,7 @@ import PhotoCard from '@/components/PhotoCard';
 import React from 'react';
 
 const AllAnimalsPage = async () => {
-  const res = await fetch('https://qurbanihat-livestock-booking-platfo.vercel.app/data.json');
+  const res = await fetch('https://qurbanihat-livestock-booking-platfo.vercel.app/data.json',{ cache: 'no-store' });
   const photos = await res.json();
   console.log(photos ,'allphotos');
   
