@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const Navbar = () => {
+  const router = useRouter();
   const userData = authClient.useSession();
   // console.log(userData);
   const user = userData.data?.user
