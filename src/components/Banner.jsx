@@ -17,8 +17,8 @@ const Banner = () => {
           </p>
 
           <div className="flex gap-4 flex-col items-center">
-            <Link href="#">
-              <Button className="bg-linear-to-r from-green-800 to bg-yellow-500 p-6 border ">
+            <Link href="/all-animals">
+              <Button className="bg-linear-to-r from-green-800 to bg-yellow-500 p-6 border font-bold hover:border-b-2 hover:text-black">
                 Browse All Animals
               </Button>
             </Link>
