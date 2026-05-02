@@ -52,26 +52,28 @@ const Navbar = () => {
         </ul>
 
         <div className="flex items-center gap-4">
-          {!user ? (
-            <ul className="flex items-center text-sm gap-4">
-              <li className="font-bold text-blue-800">
-              <Link href={"/signup"}>SignUp</Link></li>
-            <li className="font-bold text-blue-800">
-              <Link href={"/signin"}>SignIn</Link></li>
-            </ul>
-          ) : (
-            <div className="flex items-center gap-3">
-              <Avatar 
-                size="sm" 
-                src={user?.image} 
-                name={user?.name?.charAt(0)} 
-                isBordered
-              />
-              <Button onClick={handleSignOut} size="sm" color="danger" variant="flat">
-                SignOut
-              </Button>
+          { !user && <ul className="flex items-center  text-sm gap-2">
+
+            <li className="font-bold ">
+              <Link href={"/signup"}>SignUp</Link>
+            </li>
+            <li className="font-bold ">
+              <Link href={"/signin"}>SignIn</Link>
+            </li>
+          </ul>}
+          {
+           user && <div className="flex gap-3">
+              <Avatar size="sm">
+                <Avatar.Image
+                  alt="John Doe"
+                  src={user?.image}
+                  referrerPolicy="no-referrer"/>
+                <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+
+              </Avatar>
+              <Button onClick={handleSignOut} size="sm" variant="danger">SignOut</Button>
             </div>
-          )}
+          }
         </div>
 
       </nav>
