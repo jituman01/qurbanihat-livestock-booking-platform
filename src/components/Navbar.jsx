@@ -4,20 +4,21 @@ import { authClient } from "@/lib/auth-client";
 import { Avatar, Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const Navbar = () => {
   const router = useRouter();
   const userData = authClient.useSession();
   const user = userData.data?.user;
+  const pathname = usePathname();
 
-  const handleSignOut = async () => {
+  const handleLogOut = async () => {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
           toast.success("Logged out successfully!");
-          router.push("/signin");
+          router.push("/login");
         },
       },
     });
@@ -40,13 +41,13 @@ const Navbar = () => {
         </div>
 
         <ul className="flex items-center gap-4 md:gap-8 text-sm md:text-base">
-          <li className="font-bold hover:text-green-700 ">
+          <li className={`font-bold  ${pathname === "/" ? "text-green-700 border-b-2 border-b-green-700" : "hover:text-green-700 "}`}>
             <Link href={"/"}>Home</Link>
           </li>
-          <li className="font-bold hover:text-green-700 ">
+          <li className={`font-bold  ${pathname === "/all-animals" ? "text-green-700 border-b-2 border-b-green-700" : "hover:text-green-700"}`}>
             <Link href={"/all-animals"}>All Animals</Link>
           </li>
-          <li className="font-bold hover:text-green-700 ">
+          <li className={`font-bold  ${pathname === "/profile" ? "text-green-700 border-b-2 border-b-green-700" : "hover:text-green-700"}`}>
             <Link href={"/profile"}>Profile</Link>
           </li>
         </ul>
@@ -54,11 +55,11 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           { !user && <ul className="flex items-center  text-sm gap-2">
 
-            <li className="font-bold ">
-              <Link href={"/signup"}>SignUp</Link>
+            <li className={`font-bold  ${pathname === "/register" ? "text-blue-500 border-b-2 border-b-blue-500" : "hover:text-blue-500"}`}>
+              <Link href={"/register"}>Register</Link>
             </li>
-            <li className="font-bold ">
-              <Link href={"/signin"}>SignIn</Link>
+            <li className="font-bold text-white ">
+              <Button><Link href={"/login"}>Login</Link></Button>
             </li>
           </ul>}
           {
@@ -71,7 +72,7 @@ const Navbar = () => {
                 <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
 
               </Avatar>
-              <Button onClick={handleSignOut} size="sm" variant="danger">SignOut</Button>
+              <Button onClick={handleLogOut} size="sm" variant="danger">LogOut</Button>
             </div>
           }
         </div>

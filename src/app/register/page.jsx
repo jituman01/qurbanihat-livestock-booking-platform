@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 
-export default function SignUpPage() {
+export default function RegisterPage() {
   const router = useRouter();
   const [isSuccess, setIsSuccess] = useState(false); 
   const [errorMessage, setErrorMessage] = useState("");
@@ -51,7 +51,7 @@ export default function SignUpPage() {
     }
   };
 
-  const handleGoogleSignUp = async () => {
+  const handleGoogleRegister = async () => {
     await authClient.signIn.social({
       provider: 'google',
       callbackURL: '/',
@@ -60,7 +60,7 @@ export default function SignUpPage() {
 
   return (
     <Card className="border mx-auto w-125 py-10 mt-5 shadow-lg">
-      <h1 className="text-center text-2xl font-bold mb-6">Sign Up</h1>
+      <h1 className="text-center text-2xl font-bold mb-6">Register</h1>
 
       
       {isSuccess && (
@@ -143,11 +143,11 @@ export default function SignUpPage() {
         </div>
         
         <Button 
-          onClick={handleGoogleSignUp} 
+          onClick={handleGoogleRegister} 
           className="w-full bg-white border-2 text-gray-700 font-bold"
           variant="bordered"
         >
-          <FaGoogle /> Sign Up With Google
+          <FaGoogle /> Login With Google
         </Button>
       </div>
     </Card>

@@ -13,7 +13,7 @@ import {
 } from "@heroui/react";
 import toast from "react-hot-toast";
 
-export default function SignInPage() {
+export default function LoginPage() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -31,13 +31,13 @@ export default function SignInPage() {
     if (error) {
       toast.error(error.message || "Invalid email or password!");
     } else {
-      toast.success(" Signing in Successfully...");
+      toast.success(" Login Successfully...");
     }
 
     // console.log({ data, error });
   };
 
-  const handleGoogleSignIn = async () => {
+  const handleGoogleLoginIn = async () => {
     try {
       await authClient.signIn.social({
         provider: 'google'
@@ -50,7 +50,7 @@ export default function SignInPage() {
 
   return (
     <Card className="border mx-auto w-125 py-10 mt-5">
-      <h1 className="text-center text-2xl font-bold">Sign In</h1>
+      <h1 className="text-center text-2xl font-bold">LogIn</h1>
 
       <Form className="flex w-96 mx-auto flex-col gap-4" onSubmit={onSubmit}>
 
@@ -111,7 +111,7 @@ export default function SignInPage() {
       
       <div className="px-10">
         <Button 
-          onClick={handleGoogleSignIn} 
+          onClick={handleGoogleLoginIn} 
           className="w-full border-2 bg-white text-black font-medium"
         >
           Sign In With Google

@@ -29,7 +29,7 @@ const BookingForm = () => {
     <Card className="p-8 border shadow-sm rounded-2xl">
       <h2 className="text-2xl font-bold mb-1">Book This Animal</h2>
       <p className="text-sm text-gray-500 mb-6">
-        Requires user <Link href={`/signin`}><span className="text-blue-600 font-medium">login</span></Link>
+        Requires user <Link href={`/login`}><span className="text-blue-600 font-medium">login</span></Link>
       </p>
 
 
