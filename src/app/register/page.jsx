@@ -14,10 +14,10 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast"; 
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [isSuccess, setIsSuccess] = useState(false); 
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = async (e) => {
@@ -29,6 +29,8 @@ export default function RegisterPage() {
     const image = e.target.image.value;
     const password = e.target.password.value;
 
+    const loadingToast = toast.loading("Creating your account...");
+
     const { data, error } = await authClient.signUp.email({
       name,
       email,
@@ -37,17 +39,18 @@ export default function RegisterPage() {
     });
 
     if (error) {
+      toast.error(error.message || "Something went wrong!", { id: loadingToast });
       setErrorMessage(error.message || "Something went wrong!");
       return;
     }
 
     if (!error) {
-     
-      setIsSuccess(true);
+      toast.success("Account Created Successfully!", { id: loadingToast });
       e.target.reset();      
   
+      setTimeout(() => {
         router.push('/');
-    
+      }, 1500);
     }
   };
 
@@ -60,18 +63,13 @@ export default function RegisterPage() {
 
   return (
     <Card className="border mx-auto w-125 py-10 mt-5 shadow-lg">
+      <Toaster position="top-center" reverseOrder={false} />
+
       <h1 className="text-center text-2xl font-bold mb-6">Register</h1>
 
-      
-      {isSuccess && (
-        <div className="w-96 mx-auto bg-green-100 text-green-700 p-4 rounded-lg mb-5 text-sm font-bold border border-green-200">
-          <CheckDouble></CheckDouble> Account Created Successfully!
-        </div>
-      )}
-
       {errorMessage && (
-        <div className="w-96 mx-auto bg-red-100 text-red-700 p-4 rounded-lg mb-5 text-sm font-bold border border-red-200">
-          <TriangleExclamation></TriangleExclamation> {errorMessage}
+        <div className="w-96 mx-auto bg-red-100 text-red-700 p-4 rounded-lg mb-5 text-sm font-bold border border-red-200 flex items-center gap-2">
+          <TriangleExclamation /> {errorMessage}
         </div>
       )}
 
