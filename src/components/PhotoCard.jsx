@@ -6,7 +6,7 @@ import { TbCurrencyTaka } from "react-icons/tb";
 
 const PhotoCard = ({ photo }) => {
   return (
-    <Card className="border rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow">
+    <Card className="border rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow animate__animated animate__zoomIn">
       <div className="relative w-full aspect-4/3 mb-3">
         <Image
           src={photo.image}

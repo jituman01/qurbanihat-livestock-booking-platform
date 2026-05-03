@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 
+
 const QurbaniTipsSection = () => {
   const [modalData, setModalData] = useState(null);
 
@@ -21,11 +22,11 @@ const QurbaniTipsSection = () => {
           <div className="lg:col-span-5 space-y-6">
             <h3 className="text-2xl font-bold text-gray-800 mb-6">Qurbani Tips</h3>
 
-            <div className="bg-[#183f2d] p-5 rounded-2xl flex gap-5 shadow-sm border border-gray-100 items-center">
+            <div className="bg-[#183f2d] p-5 rounded-2xl flex gap-5 shadow-sm border border-gray-100 items-center animate__animated animate__slideInLeft">
               <div className="w-24 h-24 bg-[#e8f0eb] rounded-2xl  flex items-center justify-center p-4">
                 <img src="https://i.ibb.co.com/Pv1bpvHY/cattle.png" alt="Selection" className="w-full h-full " />
               </div>
-              <div>
+              <div >
                 <h4 className="font-bold text-white text-lg">Selection Process</h4>
                 <p className="text-sm text-gray-400 mb-3">Choose a healthy animal by checking its physical appearance...</p>
                 <button 
@@ -37,11 +38,11 @@ const QurbaniTipsSection = () => {
               </div>
             </div>
 
-            <div className="bg-[#183f2d] p-5 rounded-2xl flex gap-5 shadow-sm border border-gray-100 items-center">
+            <div className="bg-[#183f2d] p-5 rounded-2xl flex gap-5 shadow-sm border border-gray-100 items-center animate__animated animate__slideInLeft">
               <div className="w-24 h-24 bg-[#e8f0eb] rounded-2xl  flex items-center justify-center p-4">
                 <img src="https://i.ibb.co.com/KpQgFq1X/harvest.png" alt="Feeding" className="w-full h-full " />
               </div>
-              <div>
+              <div >
                 <h4 className="font-bold text-white text-lg">Feeding Rules</h4>
                 <p className="text-sm text-gray-400 mb-3">Maintaining a proper diet before the sacrifice is essential...</p>
                 <button 
@@ -53,11 +54,11 @@ const QurbaniTipsSection = () => {
               </div>
             </div>
 
-            <div className="bg-[#183f2d] p-5 rounded-2xl flex gap-5 shadow-sm border border-gray-100 items-center">
+            <div className="bg-[#183f2d] p-5 rounded-2xl flex gap-5 shadow-sm border border-gray-100 items-center animate__animated animate__slideInLeft">
               <div className="w-24 h-24 bg-[#e8f0eb] rounded-2xl  flex items-center justify-center p-4">
                 <img src="https://i.ibb.co.com/sJKnMvFC/knife.png" alt="Day of Qurbani" className="w-full h-full " />
               </div>
-              <div>
+              <div >
                 <h4 className="font-bold text-white text-lg">Day of Qurbani</h4>
                 <p className="text-sm text-gray-400 mb-3">Prepare yourself and the environment for a clean sacrifice...</p>
                 <button 

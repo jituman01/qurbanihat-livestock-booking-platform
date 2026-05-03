@@ -10,9 +10,9 @@ const Banner = () => {
       <div className="w-full h-full rounded-lg bg-black/50 flex items-center ">
         <div className="max-w-7xl mx-auto px-6 text-white">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 max-w-7xl text-center">
-            <span className="text-yellow-500">Your Trusted Online Hat</span> <br />for  Eid ul-Adha.
+            <span className="text-yellow-500 animate__animated animate__fadeIn animate__slower">Your Trusted Online Hat</span> <br /><span className="animate__animated animate__fadeIn animate__slower">for  Eid ul-Adha</span>.
           </h1>
-          <p className="text-lg max-w-7xl md:text-2 mb-6  text-gray-200 text-center">
+          <p className="text-lg max-w-7xl md:text-2 mb-6  text-gray-200 text-center animate__animated animate__fadeIn animate__slower">
             Simplicity Your Qurbani, Fulfill Your Obligation.Secure booking and Shariah-compliant process guaranteed.
           </p>
 
