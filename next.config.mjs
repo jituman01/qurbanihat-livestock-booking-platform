@@ -12,6 +12,10 @@ const nextConfig = {
         hostname: 'i.ibb.co',
       },
       {
+        protocol: 'https',
+        hostname: 'i.ibb.co.com',
+      },
+      {
         hostname: 'images.pexels.com'
       }
     ]
