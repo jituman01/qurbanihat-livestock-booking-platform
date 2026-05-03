@@ -11,15 +11,11 @@ const PhotoDetailsPage = async ({ params }) => {
   const photos = await res.json();  
   const photo = photos.find(p => p.id == id);
 
-  if (!photo) {
-    return <div className="text-center py-20 font-bold">Animal not found!</div>;
-  }
-
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
+    <div className="max-w-6xl mx-auto px-4 py-10 ">
       <div className="flex flex-col lg:flex-row gap-10 items-start">
         
-        <div className="flex-1 space-y-6 p-5 border rounded-2xl">
+        <div className="flex-1 space-y-6 p-5 border rounded-2xl bg-white">
           <div className="rounded-3xl shadow-sm overflow-hidden">
             <Image
               src={photo.image}
@@ -67,7 +63,7 @@ const PhotoDetailsPage = async ({ params }) => {
           </div>
         </div>
 
-        <div className="w-full lg:w-[400px] lg:sticky lg:top-24 space-y-4">
+        <div className="w-full lg:w-[400px] space-y-4">
           <BookingForm /> 
         </div>
 

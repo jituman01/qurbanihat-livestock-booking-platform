@@ -73,11 +73,13 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           {!user && (
             <ul className="flex items-center  text-sm gap-2">
+
+
               {/* dropdown menu */}
               <div className="md:hidden lg:hidden">
                 <Dropdown>
-                  <Button aria-label="Menu" variant="secondary">
-                    <Bars></Bars>
+                  <Button aria-label="Menu" variant="Outline" >
+                    <Bars className="w-5"></Bars>
                   </Button>
                   <Dropdown.Popover>
                     <Dropdown.Menu onAction={key => router.push(key)}>
