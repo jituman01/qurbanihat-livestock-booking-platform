@@ -3,11 +3,11 @@ import Link from "next/link";
 
 const Banner = () => {
   return (
-    <div style={{ backgroundImage: `url('https://i.ibb.co.com/twD5dqkF/1000-F-801880121-CJx-ACc-BCqz-JWt-GOII9-D5afr-B32y7-QXuo.jpg')` }}
-  className="h-[60vh] w-full bg-cover bg-no-repeat bg-center flex items-center rounded-lg shadow-2xl "
+    <div style={{ backgroundImage: `url('https://i.ibb.co.com/ccP1TxGs/IMG-5585.jpg')` }}
+  className="h-[70vh] w-full bg-cover bg-no-repeat bg-center flex items-center "
 >
-      {/* Overlay */}
-      <div className="w-full h-full rounded-lg bg-black/50 flex items-center ">
+      
+      <div className="w-full h-full bg-black/50 flex items-center ">
         <div className="max-w-7xl mx-auto px-6 text-white">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 max-w-7xl text-center">
             <span className="text-yellow-500 animate__animated animate__fadeIn animate__slower">Your Trusted Online Hat</span> <br /><span className="animate__animated animate__fadeIn animate__slower">for  Eid ul-Adha</span>.
