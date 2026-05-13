@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { authClient } from "@/lib/auth-client";
-import { Bars } from "@gravity-ui/icons";
-import { Avatar, Button, Dropdown, Label } from "@heroui/react";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import { authClient } from '@/lib/auth-client';
+import { Bars } from '@gravity-ui/icons';
+import { Avatar, Button, Dropdown, Label } from '@heroui/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
   const router = useRouter();
@@ -18,8 +18,8 @@ const Navbar = () => {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          toast.success("Logged out successfully!");
-          router.push("/login");
+          toast.success('Logged out successfully!');
+          router.push('/login');
         },
       },
     });
@@ -73,12 +73,10 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           {!user && (
             <ul className="flex items-center  text-sm gap-2">
-
-
               {/* dropdown menu */}
               <div className="md:hidden lg:hidden">
                 <Dropdown>
-                  <Button aria-label="Menu" variant="Outline" >
+                  <Button aria-label="Menu" variant="Outline">
                     <Bars className="w-5"></Bars>
                   </Button>
                   <Dropdown.Popover>

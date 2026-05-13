@@ -1,6 +1,6 @@
-"use client";
-import { authClient } from "@/lib/auth-client";
-import { Check, CheckDouble, TriangleExclamation } from "@gravity-ui/icons";
+'use client';
+import { authClient } from '@/lib/auth-client';
+import { Check, CheckDouble, TriangleExclamation } from '@gravity-ui/icons';
 import {
   Button,
   Card,
@@ -10,44 +10,46 @@ import {
   Input,
   Label,
   TextField,
-} from "@heroui/react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { FaGoogle } from "react-icons/fa";
-import toast, { Toaster } from "react-hot-toast"; 
+} from '@heroui/react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { FaGoogle } from 'react-icons/fa';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const onSubmit = async (e) => {
+  const onSubmit = async e => {
     e.preventDefault();
-    setErrorMessage("");
+    setErrorMessage('');
 
     const name = e.target.name.value;
     const email = e.target.email.value;
     const image = e.target.image.value;
     const password = e.target.password.value;
 
-    const loadingToast = toast.loading("Creating your account...");
+    const loadingToast = toast.loading('Creating your account...');
 
     const { data, error } = await authClient.signUp.email({
       name,
       email,
       image,
-      password
+      password,
     });
 
     if (error) {
-      toast.error(error.message || "Something went wrong!", { id: loadingToast });
-      setErrorMessage(error.message || "Something went wrong!");
+      toast.error(error.message || 'Something went wrong!', {
+        id: loadingToast,
+      });
+      setErrorMessage(error.message || 'Something went wrong!');
       return;
     }
 
     if (!error) {
-      toast.success("Account Created Successfully!", { id: loadingToast });
-      e.target.reset();      
-  
+      toast.success('Account Created Successfully!', { id: loadingToast });
+      e.target.reset();
+
       setTimeout(() => {
         router.push('/');
       }, 1500);
@@ -90,9 +92,9 @@ export default function RegisterPage() {
           isRequired
           name="email"
           type="email"
-          validate={(value) => {
+          validate={value => {
             if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-              return "Please enter a valid email address";
+              return 'Please enter a valid email address';
             }
             return null;
           }}
@@ -107,10 +109,13 @@ export default function RegisterPage() {
           minLength={8}
           name="password"
           type="password"
-          validate={(value) => {
-            if (value.length < 8) return "Password must be at least 8 characters";
-            if (!/[A-Z]/.test(value)) return "Password must contain at least one uppercase letter";
-            if (!/[0-9]/.test(value)) return "Password must contain at least one number";
+          validate={value => {
+            if (value.length < 8)
+              return 'Password must be at least 8 characters';
+            if (!/[A-Z]/.test(value))
+              return 'Password must contain at least one uppercase letter';
+            if (!/[0-9]/.test(value))
+              return 'Password must contain at least one number';
             return null;
           }}
         >
@@ -139,9 +144,9 @@ export default function RegisterPage() {
           <p className="text-gray-400 text-sm font-medium">Or</p>
           <div className=" bg-gray-200 flex-1"></div>
         </div>
-        
-        <Button 
-          onClick={handleGoogleRegister} 
+
+        <Button
+          onClick={handleGoogleRegister}
           className="w-full bg-white border-2 text-gray-700 font-bold"
           variant="bordered"
         >

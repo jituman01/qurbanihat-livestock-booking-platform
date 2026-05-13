@@ -13,7 +13,7 @@
 
 ## 🛠 Tech Stack
 
-*   **Framework:** Next.js 15+ (App Router)
+*   **Framework:** Next.js (App Router)
 *   **Styling:** Tailwind CSS
 *   **UI Components:** HeroUI
 *   **Authentication:** Better-Auth
