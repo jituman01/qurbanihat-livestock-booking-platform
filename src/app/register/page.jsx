@@ -1,4 +1,5 @@
 'use client';
+import { Suspense } from 'react'; 
 import { authClient } from '@/lib/auth-client';
 import { Check, TriangleExclamation } from '@gravity-ui/icons';
 import {
@@ -17,10 +18,9 @@ import { useState } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import toast, { Toaster } from 'react-hot-toast';
 
-export default function RegisterPage() {
+function RegisterContent() {
   const searchParams = useSearchParams();
   const [errorMessage, setErrorMessage] = useState('');
-
   const callbackUrl = searchParams.get('callbackUrl') || '/';
 
   const onSubmit = async e => {
@@ -34,17 +34,10 @@ export default function RegisterPage() {
 
     const loadingToast = toast.loading('Creating your account...');
 
-    const { data, error } = await authClient.signUp.email({
-      name,
-      email,
-      image,
-      password,
-    });
+    const { data, error } = await authClient.signUp.email({ name, email, image, password });
 
     if (error) {
-      toast.error(error.message || 'Something went wrong!', {
-        id: loadingToast,
-      });
+      toast.error(error.message || 'Something went wrong!', { id: loadingToast });
       setErrorMessage(error.message || 'Something went wrong!');
       return;
     }
@@ -52,7 +45,6 @@ export default function RegisterPage() {
     if (!error) {
       toast.success('Account Created Successfully!', { id: loadingToast });
       e.target.reset();
-
       setTimeout(() => {
         window.location.href = callbackUrl; 
       }, 1500);
@@ -73,28 +65,23 @@ export default function RegisterPage() {
   return (
     <Card className="border mx-auto w-125 py-10 mt-5 shadow-lg">
       <Toaster position="top-center" reverseOrder={false} />
-
       <h1 className="text-center text-2xl font-bold mb-6">Register</h1>
-
       {errorMessage && (
         <div className="w-96 mx-auto bg-red-100 text-red-700 p-4 rounded-lg mb-5 text-sm font-bold border border-red-200 flex items-center gap-2">
           <TriangleExclamation /> {errorMessage}
         </div>
       )}
-
       <Form className="flex w-96 mx-auto flex-col gap-4" onSubmit={onSubmit}>
         <TextField isRequired name="name" type="text">
           <Label>Name</Label>
           <Input placeholder="Enter your name" variant="bordered" />
           <FieldError />
         </TextField>
-
         <TextField isRequired name="image" type="text">
           <Label>Image URL</Label>
           <Input placeholder="Image URL" variant="bordered" />
           <FieldError />
         </TextField>
-
         <TextField
           isRequired
           name="email"
@@ -110,66 +97,54 @@ export default function RegisterPage() {
           <Input placeholder="john@example.com" variant="bordered" />
           <FieldError />
         </TextField>
-
         <TextField
           isRequired
           minLength={8}
           name="password"
           type="password"
           validate={value => {
-            if (value.length < 8)
-              return 'Password must be at least 8 characters';
-            if (!/[A-Z]/.test(value))
-              return 'Password must contain at least one uppercase letter';
-            if (!/[0-9]/.test(value))
-              return 'Password must contain at least one number';
+            if (value.length < 8) return 'Password must be at least 8 characters';
+            if (!/[A-Z]/.test(value)) return 'Password must contain at least one uppercase letter';
+            if (!/[0-9]/.test(value)) return 'Password must contain at least one number';
             return null;
           }}
         >
           <Label>Password</Label>
           <Input placeholder="Enter your password" variant="bordered" />
-          <Description>
-            Must be at least 8 characters with 1 uppercase and 1 number
-          </Description>
+          <Description>Must be at least 8 characters with 1 uppercase and 1 number</Description>
           <FieldError />
         </TextField>
-
         <div className="flex gap-2 mt-2">
           <Button type="submit" color="primary" className="flex-1 font-bold">
-            <Check />
-            Submit
+            <Check /> Submit
           </Button>
-          <Button type="reset" variant="flat" color="danger">
-            Reset
-          </Button>
+          <Button type="reset" variant="flat" color="danger">Reset</Button>
         </div>
       </Form>
-
       <div className="w-96 mx-auto mt-6">
         <div className="flex items-center gap-4 mb-6">
           <div className=" bg-gray-200 flex-1"></div>
           <p className="text-gray-400 text-sm font-medium">Or</p>
           <div className=" bg-gray-200 flex-1"></div>
         </div>
-
-        <Button
-          onClick={handleGoogleRegister}
-          className="w-full bg-white border-2 text-gray-700 font-bold mb-4"
-          variant="bordered"
-        >
+        <Button onClick={handleGoogleRegister} className="w-full bg-white border-2 text-gray-700 font-bold mb-4" variant="bordered">
           <FaGoogle /> Register With Google
         </Button>
       </div>
-
       <p className="text-center text-sm text-gray-600">
         Already have an account?{' '}
-        <Link
-          href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`}
-          className="text-green-700 font-bold hover:underline"
-        >
+        <Link href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`} className="text-green-700 font-bold hover:underline">
           LogIn here
         </Link>
       </p>
     </Card>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div className="text-center mt-10 font-bold">Loading...</div>}>
+      <RegisterContent />
+    </Suspense>
   );
 }
