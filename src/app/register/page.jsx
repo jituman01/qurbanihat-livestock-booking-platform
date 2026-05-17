@@ -11,15 +11,17 @@ import {
   Label,
   TextField,
 } from '@heroui/react';
-import Link from 'next/link'; 
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function RegisterPage() {
-  const router = useRouter();
+  const searchParams = useSearchParams();
   const [errorMessage, setErrorMessage] = useState('');
+
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
 
   const onSubmit = async e => {
     e.preventDefault();
@@ -52,16 +54,20 @@ export default function RegisterPage() {
       e.target.reset();
 
       setTimeout(() => {
-        router.push('/');
+        window.location.href = callbackUrl; 
       }, 1500);
     }
   };
 
   const handleGoogleRegister = async () => {
-    await authClient.signIn.social({
-      provider: 'google',
-      callbackURL: '/', 
-    });
+    try {
+      await authClient.signIn.social({
+        provider: 'google',
+        callbackURL: callbackUrl,
+      });
+    } catch (err) {
+      toast.error('Could not sign in with Google.');
+    }
   };
 
   return (
@@ -157,7 +163,10 @@ export default function RegisterPage() {
 
       <p className="text-center text-sm text-gray-600">
         Already have an account?{' '}
-        <Link href="/login" className="text-green-700 font-bold hover:underline">
+        <Link
+          href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`}
+          className="text-green-700 font-bold hover:underline"
+        >
           LogIn here
         </Link>
       </p>

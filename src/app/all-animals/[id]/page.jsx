@@ -1,21 +1,23 @@
-import Image from "next/image";
-import { TbCurrencyTaka } from "react-icons/tb";
-import BookingForm from "@/components/BookingForm"; 
-import { Toaster } from "react-hot-toast"; 
+import Image from 'next/image';
+import { TbCurrencyTaka } from 'react-icons/tb';
+import BookingForm from '@/components/BookingForm';
+import { Toaster } from 'react-hot-toast';
 
 const PhotoDetailsPage = async ({ params }) => {
   const { id } = await params;
-  
-  const res = await fetch('https://qurbanihat-livestock-booking-platfo.vercel.app/data.json', { 
-    next: { revalidate: 10 } 
-  });
-  const photos = await res.json();  
+
+  const res = await fetch(
+    'https://qurbanihat-livestock-booking-platfo.vercel.app/data.json',
+    {
+      next: { revalidate: 10 },
+    }
+  );
+  const photos = await res.json();
   const photo = photos.find(p => p.id == id);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 ">
       <div className="flex flex-col lg:flex-row gap-10 items-start">
-        
         <div className="flex-1 space-y-6 p-5 border rounded-2xl bg-white">
           <div className="rounded-3xl shadow-sm overflow-hidden">
             <Image
@@ -32,17 +34,19 @@ const PhotoDetailsPage = async ({ params }) => {
             <h1 className="text-4xl font-bold text-gray-900">{photo.name}</h1>
             <div className="flex items-center gap-3 text-2xl text-green-600">
               <TbCurrencyTaka size={30} />
-              <span className="font-bold text-green-600">{photo.price.toLocaleString()}</span>
+              <span className="font-bold text-green-600">
+                {photo.price.toLocaleString()}
+              </span>
               <span className="text-gray-300">|</span>
-              <span className="text-gray-600 text-lg font-semibold">{photo.weight} kg</span>
+              <span className="text-gray-600 text-lg font-semibold">
+                {photo.weight} kg
+              </span>
             </div>
           </div>
 
           <div className="space-y-2">
             <h3 className="text-xl font-bold">Description</h3>
-            <p className="text-gray-600 leading-relaxed">
-              {photo.description}
-            </p>
+            <p className="text-gray-600 leading-relaxed">{photo.description}</p>
           </div>
 
           <div className="space-y-4">
@@ -65,9 +69,8 @@ const PhotoDetailsPage = async ({ params }) => {
         </div>
 
         <div className="w-full lg:w-[400px] space-y-4">
-          <BookingForm /> 
+          <BookingForm />
         </div>
-
       </div>
 
       <Toaster position="top-center" reverseOrder={false} />

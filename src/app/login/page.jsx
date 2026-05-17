@@ -1,6 +1,6 @@
-"use client";
-import { authClient } from "@/lib/auth-client";
-import { Check } from "@gravity-ui/icons";
+'use client';
+import { authClient } from '@/lib/auth-client';
+import { Check } from '@gravity-ui/icons';
 import {
   Button,
   Card,
@@ -10,13 +10,18 @@ import {
   Input,
   Label,
   TextField,
-} from "@heroui/react";
-import Link from "next/link";
-import toast from "react-hot-toast";
+} from '@heroui/react';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import toast from 'react-hot-toast';
+import { FaGoogle } from 'react-icons/fa';
 
 export default function LoginPage() {
+  const searchParams = useSearchParams();
+  
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
 
-  const onSubmit = async (e) => {
+  const onSubmit = async e => {
     e.preventDefault();
 
     const email = e.target.email.value;
@@ -28,13 +33,13 @@ export default function LoginPage() {
     });
 
     if (error) {
-      toast.error(error.message || "Invalid email or password!");
+      toast.error(error.message || 'Invalid email or password!');
     } else {
-      toast.success("Login Successfully...");
-      
+      toast.success('Login Successfully...');
+
       setTimeout(() => {
-        window.location.href = '/';
-      }, 1000); 
+        window.location.href = callbackUrl; 
+      }, 1000);
     }
   };
 
@@ -42,10 +47,10 @@ export default function LoginPage() {
     try {
       await authClient.signIn.social({
         provider: 'google',
-        callbackURL: '/'
+        callbackURL: callbackUrl, 
       });
     } catch (err) {
-      toast.error("Could not sign in with Google.");
+      toast.error('Could not sign in with Google.');
     }
   };
 
@@ -54,14 +59,13 @@ export default function LoginPage() {
       <h1 className="text-center text-2xl font-bold">LogIn</h1>
 
       <Form className="flex w-96 mx-auto flex-col gap-4" onSubmit={onSubmit}>
-
         <TextField
           isRequired
           name="email"
           type="email"
-          validate={(value) => {
+          validate={value => {
             if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-              return "Please enter a valid email address";
+              return 'Please enter a valid email address';
             }
             return null;
           }}
@@ -76,15 +80,15 @@ export default function LoginPage() {
           minLength={8}
           name="password"
           type="password"
-          validate={(value) => {
+          validate={value => {
             if (value.length < 8) {
-              return "Password must be at least 8 characters";
+              return 'Password must be at least 8 characters';
             }
             if (!/[A-Z]/.test(value)) {
-              return "Password must contain at least one uppercase letter";
+              return 'Password must contain at least one uppercase letter';
             }
             if (!/[0-9]/.test(value)) {
-              return "Password must contain at least one number";
+              return 'Password must contain at least one number';
             }
             return null;
           }}
@@ -109,19 +113,22 @@ export default function LoginPage() {
       </Form>
 
       <p className="text-center my-2">Or</p>
-      
+
       <div className="px-10 mb-4">
-        <Button 
-          onClick={handleGoogleLoginIn} 
+        <Button
+          onClick={handleGoogleLoginIn}
           className="w-full border-2 bg-white text-black font-medium"
         >
-          Sign In With Google
+         <FaGoogle/> Sign In With Google
         </Button>
       </div>
 
       <p className="text-center text-sm text-gray-600">
         Don't have an account?{' '}
-        <Link href="/register" className="text-green-700 font-bold hover:underline">
+        <Link
+          href={`/register?callbackUrl=${encodeURIComponent(callbackUrl)}`}
+          className="text-green-700 font-bold hover:underline"
+        >
           Register here
         </Link>
       </p>
