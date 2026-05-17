@@ -21,9 +21,8 @@ const Navbar = () => {
           toast.success('Logged out successfully!');
           
           setTimeout(() => {
-            router.push('/');
-            router.refresh();
-          }, 800); 
+            window.location.href = '/'; 
+          }, 1000);
         },
       },
     });
