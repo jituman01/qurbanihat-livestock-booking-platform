@@ -21,7 +21,7 @@ const Navbar = () => {
           toast.success('Logged out successfully!');
           
           setTimeout(() => {
-            router.push('/login');
+            router.push('/');
             router.refresh();
           }, 800); 
         },
