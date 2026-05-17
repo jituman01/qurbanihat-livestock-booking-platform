@@ -15,10 +15,10 @@ const ProfilePage = () => {
         
         <Avatar className="w-24 h-24 mb-4">
           <Avatar.Image
-            alt={user?.name || "User"}
-            src={user?.image || ""}
-            referrerPolicy="no-referrer"
-          />
+          alt={user?.name || "User"}
+          src={user?.image || null} 
+          referrerPolicy="no-referrer"
+            />
           <Avatar.Fallback className="text-2xl font-bold bg-green-700 text-white">
             {user?.name?.charAt(0).toUpperCase() || "U"}
           </Avatar.Fallback>
