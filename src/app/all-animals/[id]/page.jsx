@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { TbCurrencyTaka } from "react-icons/tb";
 import BookingForm from "@/components/BookingForm"; 
+import { Toaster } from "react-hot-toast"; 
 
 const PhotoDetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -68,6 +69,8 @@ const PhotoDetailsPage = async ({ params }) => {
         </div>
 
       </div>
+
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };

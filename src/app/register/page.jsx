@@ -52,7 +52,7 @@ export default function RegisterPage() {
       e.target.reset();
 
       setTimeout(() => {
-        router.push('/login');
+        router.push('/');
       }, 1500);
     }
   };

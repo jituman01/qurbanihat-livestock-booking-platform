@@ -6,11 +6,11 @@ import { Avatar, Button, Dropdown, Label } from '@heroui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Navbar = () => {
   const router = useRouter();
-  const { data: session, isPending } = authClient.useSession(); 
+  const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
   const pathname = usePathname();
 
@@ -19,8 +19,11 @@ const Navbar = () => {
       fetchOptions: {
         onSuccess: () => {
           toast.success('Logged out successfully!');
-          router.push('/login');
-          router.refresh(); 
+          
+          setTimeout(() => {
+            router.push('/login');
+            router.refresh();
+          }, 800); 
         },
       },
     });
@@ -29,7 +32,6 @@ const Navbar = () => {
   return (
     <div className="border-b px-4 bg-white">
       <nav className="flex flex-col md:flex-row justify-between items-center py-2 md:py-4 max-w-7xl mx-auto w-full gap-2 md:gap-4">
-        
         {/* Logo */}
         <div className="flex gap-2 items-center">
           <Image
@@ -44,29 +46,45 @@ const Navbar = () => {
         </div>
 
         <ul className="hidden md:flex items-center gap-4 md:gap-8 text-sm md:text-base">
-          <li className={`font-bold ${pathname === '/' ? 'text-green-700 border-b-2 border-b-green-700' : 'hover:text-green-700'}`}>
+          <li
+            className={`font-bold ${
+              pathname === '/'
+                ? 'text-green-700 border-b-2 border-b-green-700'
+                : 'hover:text-green-700'
+            }`}
+          >
             <Link href={'/'}>Home</Link>
           </li>
-          <li className={`font-bold ${pathname === '/all-animals' ? 'text-green-700 border-b-2 border-b-green-700' : 'hover:text-green-700'}`}>
+          <li
+            className={`font-bold ${
+              pathname === '/all-animals'
+                ? 'text-green-700 border-b-2 border-b-green-700'
+                : 'hover:text-green-700'
+            }`}
+          >
             <Link href={'/all-animals'}>All Animals</Link>
           </li>
-          
+
           {user && (
-            <li className={`font-bold ${pathname === '/profile' ? 'text-green-700 border-b-2 border-b-green-700' : 'hover:text-green-700'}`}>
+            <li
+              className={`font-bold ${
+                pathname === '/profile'
+                  ? 'text-green-700 border-b-2 border-b-green-700'
+                  : 'hover:text-green-700'
+              }`}
+            >
               <Link href={'/profile'}>Profile</Link>
             </li>
           )}
         </ul>
 
         <div className="flex items-center gap-4">
-          
           {isPending ? (
             <div className="h-8 w-8 animate-pulse bg-gray-200 rounded-full"></div>
           ) : (
             <>
               {!user && (
                 <ul className="flex items-center text-sm gap-2">
-                  
                   {/* Mobile Dropdown Menu */}
                   <div className="md:hidden lg:hidden">
                     <Dropdown>
@@ -78,7 +96,10 @@ const Navbar = () => {
                           <Dropdown.Item id="/" textValue="Home">
                             <Label>Home</Label>
                           </Dropdown.Item>
-                          <Dropdown.Item id="/all-animals" textValue="All Animals">
+                          <Dropdown.Item
+                            id="/all-animals"
+                            textValue="All Animals"
+                          >
                             <Label>All Animals</Label>
                           </Dropdown.Item>
                           {user && (
@@ -91,7 +112,13 @@ const Navbar = () => {
                     </Dropdown>
                   </div>
 
-                  <li className={`font-bold ${pathname === '/register' ? 'text-blue-500 border-b-2 border-b-blue-500' : 'hover:text-blue-500'}`}>
+                  <li
+                    className={`font-bold ${
+                      pathname === '/register'
+                        ? 'text-blue-500 border-b-2 border-b-blue-500'
+                        : 'hover:text-blue-500'
+                    }`}
+                  >
                     <Link href={'/register'}>Register</Link>
                   </li>
                   <li className="font-bold text-white">
@@ -106,11 +133,13 @@ const Navbar = () => {
                 <div className="flex gap-3 items-center">
                   <Avatar size="sm">
                     <Avatar.Image
-                      alt={user?.name || "User"}
+                      alt={user?.name || 'User'}
                       src={user?.image}
                       referrerPolicy="no-referrer"
                     />
-                    <Avatar.Fallback>{user?.name?.charAt(0) || "U"}</Avatar.Fallback>
+                    <Avatar.Fallback>
+                      {user?.name?.charAt(0) || 'U'}
+                    </Avatar.Fallback>
                   </Avatar>
                   <Button onClick={handleLogOut} size="sm" variant="danger">
                     LogOut
@@ -121,6 +150,7 @@ const Navbar = () => {
           )}
         </div>
       </nav>
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };

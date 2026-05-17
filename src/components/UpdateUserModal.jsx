@@ -1,7 +1,6 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import { Envelope } from "@gravity-ui/icons";
 import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
 import { FaEdit, FaUser } from "react-icons/fa";
 import toast from "react-hot-toast"; 
@@ -10,25 +9,35 @@ export function UpdateUserModal() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const name = e.target.name.value;
-    const image = e.target.image.value;
+    const name = e.target.name.value.trim();
+    const image = e.target.image.value.trim();
 
-    const { data, error } = await authClient.updateUser({
-      name,
-      image,
-    });
+    const updateData = {};
+    if (name) updateData.name = name;
+    if (image) updateData.image = image;
+
+    if (Object.keys(updateData).length === 0) {
+      toast.error("Please fill at least one field to update!");
+      return;
+    }
+
+    const { data, error } = await authClient.updateUser(updateData);
 
     if (error) {
       toast.error(error.message || "Update failed!");
     } else {
       toast.success("Profile updated successfully!");
+      
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   };
 
   return (
     <Modal>
       <Button variant="secondary">
-        <FaEdit></FaEdit> Update Profile
+        <FaEdit /> Update Profile
       </Button>
       <Modal.Backdrop>
         <Modal.Container placement="auto">
@@ -56,7 +65,7 @@ export function UpdateUserModal() {
                     <Button slot="close" variant="secondary">
                       Cancel
                     </Button>
-                    <Button type="submit" slot="close">
+                    <Button type="submit" slot="close" className="bg-green-700 text-white font-bold">
                       Save
                     </Button>
                   </Modal.Footer>
