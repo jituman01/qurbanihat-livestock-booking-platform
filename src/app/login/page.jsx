@@ -11,6 +11,7 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
+import Link from "next/link";
 import toast from "react-hot-toast";
 
 export default function LoginPage() {
@@ -24,32 +25,32 @@ export default function LoginPage() {
     const { data, error } = await authClient.signIn.email({
       email,
       password,
-      callbackURL: '/'
     });
 
-   
     if (error) {
       toast.error(error.message || "Invalid email or password!");
     } else {
-      toast.success(" Login Successfully...");
+      toast.success("Login Successfully...");
+      
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1000); 
     }
-
-    // console.log({ data, error });
   };
 
   const handleGoogleLoginIn = async () => {
     try {
       await authClient.signIn.social({
-        provider: 'google'
+        provider: 'google',
+        callbackURL: '/'
       });
-      
     } catch (err) {
       toast.error("Could not sign in with Google.");
     }
   };
 
   return (
-    <Card className="border mx-auto w-125 py-10 mt-5">
+    <Card className="border mx-auto w-125 py-10 mt-5 shadow-lg">
       <h1 className="text-center text-2xl font-bold">LogIn</h1>
 
       <Form className="flex w-96 mx-auto flex-col gap-4" onSubmit={onSubmit}>
@@ -109,7 +110,7 @@ export default function LoginPage() {
 
       <p className="text-center my-2">Or</p>
       
-      <div className="px-10">
+      <div className="px-10 mb-4">
         <Button 
           onClick={handleGoogleLoginIn} 
           className="w-full border-2 bg-white text-black font-medium"
@@ -117,6 +118,13 @@ export default function LoginPage() {
           Sign In With Google
         </Button>
       </div>
+
+      <p className="text-center text-sm text-gray-600">
+        Don't have an account?{' '}
+        <Link href="/register" className="text-green-700 font-bold hover:underline">
+          Register here
+        </Link>
+      </p>
     </Card>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 import { authClient } from '@/lib/auth-client';
-import { Check, CheckDouble, TriangleExclamation } from '@gravity-ui/icons';
+import { Check, TriangleExclamation } from '@gravity-ui/icons';
 import {
   Button,
   Card,
@@ -11,6 +11,7 @@ import {
   Label,
   TextField,
 } from '@heroui/react';
+import Link from 'next/link'; 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FaGoogle } from 'react-icons/fa';
@@ -51,7 +52,7 @@ export default function RegisterPage() {
       e.target.reset();
 
       setTimeout(() => {
-        router.push('/');
+        router.push('/login');
       }, 1500);
     }
   };
@@ -59,7 +60,7 @@ export default function RegisterPage() {
   const handleGoogleRegister = async () => {
     await authClient.signIn.social({
       provider: 'google',
-      callbackURL: '/',
+      callbackURL: '/', 
     });
   };
 
@@ -147,12 +148,19 @@ export default function RegisterPage() {
 
         <Button
           onClick={handleGoogleRegister}
-          className="w-full bg-white border-2 text-gray-700 font-bold"
+          className="w-full bg-white border-2 text-gray-700 font-bold mb-4"
           variant="bordered"
         >
-          <FaGoogle /> Login With Google
+          <FaGoogle /> Register With Google
         </Button>
       </div>
+
+      <p className="text-center text-sm text-gray-600">
+        Already have an account?{' '}
+        <Link href="/login" className="text-green-700 font-bold hover:underline">
+          LogIn here
+        </Link>
+      </p>
     </Card>
   );
 }
