@@ -7,7 +7,7 @@ const FeaturedAnimals = async () => {
   const photos = await res.json();
   // console.log(animals);
   const featuredPhotos = photos.slice(0, 4);
-  console.log(featuredPhotos);
+  // console.log(featuredPhotos);
   
   
   return (
